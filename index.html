@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maths Magic 🎂</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        min-height: 100vh;
+        min-height: 100dvh;
+        width: 100%;
+        font-family: "Trebuchet MS", Arial, sans-serif;
+        background: radial-gradient(circle at top, #302b63, #0f0c29);
+        color: white;
+        overflow-x: hidden;
+        overflow-y: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 12px;
+    }
+
+    /* Floating maths symbols */
+    .symbol {
+        position: fixed;
+        color: rgba(255,255,255,0.13);
+        font-size: 40px;
+        font-weight: bold;
+        animation: float 8s infinite ease-in-out;
+        pointer-events: none;
+    }
+
+    .s1 { left: 5%; top: 15%; animation-delay: 0s; }
+    .s2 { left: 85%; top: 12%; animation-delay: 1s; }
+    .s3 { left: 12%; top: 75%; animation-delay: 2s; }
+    .s4 { left: 90%; top: 70%; animation-delay: 3s; }
+    .s5 { left: 45%; top: 5%; animation-delay: 1.5s; }
+    .s6 { left: 70%; top: 85%; animation-delay: 2.5s; }
+    .s7 { left: 25%; top: 40%; animation-delay: 3.5s; }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-30px) rotate(15deg); }
+    }
+
+    .container {
+        width: min(700px, 100%);
+        max-width: 700px;
+        text-align: center;
+        padding: clamp(24px, 5vw, 40px) clamp(16px, 5vw, 25px);
+        border-radius: 30px;
+        background: rgba(255,255,255,0.10);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255,255,255,0.2);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        position: relative;
+        z-index: 5;
+    }
+
+    .small-title {
+        color: #ffd166;
+        letter-spacing: 3px;
+        font-size: 14px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+    h1 {
+        font-size: clamp(32px, 7vw, 60px);
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #ff9a9e, #fad0c4, #ffd166);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .question {
+        font-size: clamp(16px, 4.5vw, 21px);
+        line-height: 1.6;
+        margin-bottom: 25px;
+        overflow-wrap: anywhere;
+    }
+
+    .equation {
+        min-height: 100px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: clamp(22px, 6vw, 42px);
+        line-height: 1.25;
+        font-weight: bold;
+        color: #7ee8fa;
+        margin: 20px 0;
+        padding: 0 4px;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        transition: all 0.5s ease;
+    }
+
+    .button {
+        border: none;
+        outline: none;
+        padding: 14px clamp(20px, 6vw, 30px);
+        border-radius: 50px;
+        font-size: clamp(16px, 4.5vw, 18px);
+        max-width: 100%;
+        white-space: normal;
+        font-weight: bold;
+        color: #302b63;
+        background: linear-gradient(135deg, #ffd166, #ff9a9e);
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(255, 209, 102, 0.3);
+        transition: 0.3s;
+    }
+
+    .button:hover {
+        transform: translateY(-3px) scale(1.04);
+        box-shadow: 0 12px 35px rgba(255, 209, 102, 0.5);
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    #result {
+        animation: reveal 1s ease;
+    }
+
+    @keyframes reveal {
+        from {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .birthday {
+        font-size: clamp(35px, 8vw, 65px);
+        font-weight: bold;
+        background: linear-gradient(90deg, #ff758c, #ff7eb3, #ffd166);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 15px 0;
+    }
+
+    .message {
+        font-size: clamp(16px, 4.2vw, 19px);
+        line-height: 1.8;
+        margin: 15px auto;
+        max-width: 570px;
+        overflow-wrap: anywhere;
+    }
+
+    .heart {
+        color: #ff6b81;
+        animation: heartbeat 1.2s infinite;
+        display: inline-block;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.25); }
+    }
+
+    .cake {
+        font-size: clamp(55px, 18vw, 80px);
+        margin: 15px;
+        animation: cakePop 1.2s ease infinite alternate;
+    }
+
+    @keyframes cakePop {
+        from { transform: translateY(0); }
+        to { transform: translateY(-8px); }
+    }
+
+    .footer {
+        margin-top: 25px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: rgba(255,255,255,0.55);
+    }
+
+    /* Confetti */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 15px;
+        top: -20px;
+        z-index: 20;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(720deg);
+        }
+    }
+
+    .glow {
+        text-shadow: 0 0 20px rgba(126,232,250,0.8);
+    }
+
+    /* =========================
+       MOBILE RESPONSIVE FIX
+       ========================= */
+    @media (max-width: 600px) {
+        body {
+            align-items: center;
+            justify-content: center;
+            padding: 12px 8px;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            border-radius: 22px;
+            padding: 24px 16px;
+        }
+
+        .small-title {
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 10vw, 44px);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .question {
+            font-size: 16px;
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+
+        .equation {
+            min-height: 80px;
+            font-size: clamp(21px, 7vw, 32px);
+            line-height: 1.3;
+            margin: 15px 0;
+        }
+
+        .button {
+            width: min(100%, 330px);
+            padding: 13px 18px;
+            font-size: 16px;
+        }
+
+        .birthday {
+            font-size: clamp(32px, 10vw, 50px);
+            line-height: 1.1;
+            margin: 12px 0;
+        }
+
+        #result h2 {
+            font-size: clamp(21px, 7vw, 28px) !important;
+        }
+
+        .message {
+            font-size: 16px;
+            line-height: 1.65;
+            margin: 12px auto;
+        }
+
+        #result > p[style] {
+            font-size: 16px !important;
+            line-height: 1.5;
+        }
+
+        #result > div[style] {
+            font-size: clamp(22px, 8vw, 30px) !important;
+            white-space: normal;
+            word-spacing: 2px;
+        }
+
+        .symbol {
+            font-size: 28px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        body {
+            align-items: center;
+            justify-content: center;
+            padding: 8px 5px;
+        }
+
+        .container {
+            padding: 20px 12px;
+            border-radius: 18px;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        .question {
+            font-size: 15px;
+        }
+
+        .equation {
+            font-size: 20px;
+        }
+
+        .button {
+            font-size: 15px;
+        }
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- Floating Maths Symbols -->
+<div class="symbol s1">π</div>
+<div class="symbol s2">√</div>
+<div class="symbol s3">∞</div>
+<div class="symbol s4">Σ</div>
+<div class="symbol s5">÷</div>
+<div class="symbol s6">∫</div>
+<div class="symbol s7">x²</div>
+
+<div class="container">
+
+    <div id="startScreen">
+
+        <div class="small-title">⚠️ Important Mathematical Problem</div>
+
+        <h1>Maths Magic 🧮✨</h1>
+
+        <div class="question">
+            Ma'am, I have a very important mathematical problem for you...
+            <br><br>
+            And only you can solve it! 😄
+        </div>
+
+        <div class="equation glow">
+            Students + Memories + Mathematics = ?
+        </div>
+
+        <button class="button" onclick="startMagic()">
+            Solve the Problem →
+        </button>
+
+        <div class="footer">
+            Warning: The answer may contain happiness. 🎉
+        </div>
+
+    </div>
+
+
+    <!-- Equation Sequence -->
+    <div id="mathScreen" class="hidden">
+
+        <div class="small-title">Calculating...</div>
+
+        <h1>Let's Calculate! 🧠</h1>
+
+        <div id="equation" class="equation">
+            Loading...
+        </div>
+
+        <p id="hint" class="question">
+            Hmm... Let's solve this step by step.
+        </p>
+
+        <button id="nextButton" class="button" onclick="nextEquation()">
+            Next Step →
+        </button>
+
+    </div>
+
+
+    <!-- Final Surprise -->
+    <div id="result" class="hidden">
+
+        <div class="small-title">Mathematical Result Found! 🎯</div>
+
+        <div class="cake">🎂</div>
+
+        <div class="birthday">
+            HAPPY BIRTHDAY!
+        </div>
+
+        <h2 style="color:#ffd166; font-size:28px;">
+             Ma'am 
+        </h2>
+
+        <p class="message">
+            After performing extremely complicated calculations,
+            we have finally discovered the answer:
+        </p>
+
+        <div class="equation glow">
+            Your Kindness + Your Knowledge + Your Patience = ∞
+        </div>
+        <p class="message">
+            Happy Birthday, Ma’am! 🌷🎂
+
+Wishing you a beautiful birthday filled with happiness, peace, and countless wonderful moments. Your kindness, patience, and guidance make such a meaningful difference in the lives of your students.
+
+May you always keep smiling, may every new day bring you something to be proud of, and may all your dreams and wishes come true. ✨
+
+**Thank you for being not just a wonderful teacher, but also an inspiration to us. 💐**
+
+Once again, **Happy Birthday, Ma’am! 🎉🌸**
+May your special day be as wonderful and inspiring as you are!
+
+        </p>
+        <p class="message">
+            Thank you for making Mathematics more interesting,
+            for patiently explaining things again and again,
+            and for inspiring us to keep learning. 📚✨
+        </p>
+
+        <p class="message">
+            May your special day be filled with
+            <b>happiness, laughter and countless beautiful moments!</b>
+        </p>
+
+        <div style="font-size:30px; margin-top:20px;">
+            🎈 🎉 💐 🎁 ❤️ 🎊 🎈
+        </div>
+
+        <p style="margin-top:20px; font-size:18px;">
+            With lots of love and respect,
+            <br>
+            <b>Your Student </b>
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let step = 0;
+
+const equations = [
+    {
+        text: "Knowledge + Passion = ?",
+        hint: "Something every great teacher has..."
+    },
+    {
+        text: "Patience × Students = ?",
+        hint: "The answer seems to be getting very large! 😄"
+    },
+    {
+        text: "Lessons + Memories = ❤️",
+        hint: "Some things cannot be measured by numbers."
+    },
+    {
+        text: "Kindness + Inspiration = ∞",
+        hint: "Now we're getting somewhere..."
+    },
+    {
+        text: "Amazing Teacher = ?",
+        hint: "Let's calculate the final answer..."
+    }
+];
+
+function startMagic() {
+
+    document.getElementById("startScreen").classList.add("hidden");
+    document.getElementById("mathScreen").classList.remove("hidden");
+
+    showEquation();
+}
+
+function showEquation() {
+
+    const equation = document.getElementById("equation");
+    const hint = document.getElementById("hint");
+
+    equation.style.opacity = "0";
+    equation.style.transform = "scale(0.7)";
+
+    setTimeout(() => {
+
+        equation.innerHTML = equations[step].text;
+        hint.innerHTML = equations[step].hint;
+
+        equation.style.opacity = "1";
+        equation.style.transform = "scale(1)";
+
+    }, 300);
+}
+
+function nextEquation() {
+
+    step++;
+
+    if (step >= equations.length) {
+        showResult();
+        return;
+    }
+
+    showEquation();
+
+    if (step === equations.length - 1) {
+        document.getElementById("nextButton").innerHTML =
+            "Reveal the Answer 🎁";
+    }
+}
+
+function showResult() {
+
+    document.getElementById("mathScreen").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+
+    createConfetti();
+}
+
+
+/* Confetti Generator */
+
+function createConfetti() {
+
+    const colors = [
+        "#ff6b6b",
+        "#ffd166",
+        "#06d6a0",
+        "#4cc9f0",
+        "#c77dff",
+        "#ff7eb3"
+    ];
+
+    for (let i = 0; i < 120; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.classList.add("confetti");
+
+        confetti.style.left = Math.random() * 100 + "vw";
+
+        confetti.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        confetti.style.animationDuration =
+            (Math.random() * 3 + 2) + "s";
+
+        confetti.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        confetti.style.transform =
+            "rotate(" + Math.random() * 360 + "deg)";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 6000);
+    }
+}
+
+</script>
+
+</body>
+</html>
